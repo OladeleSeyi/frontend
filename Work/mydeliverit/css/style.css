@@ -1894,3 +1894,8 @@ h5,
   background: #e6e6e6;
   color: #000;
 }
+
+.my-icon {
+  line-height: 1;
+  font-size: 2rem;
+}
