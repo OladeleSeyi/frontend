@@ -109,7 +109,7 @@
 
 
           <h1 class="text-white font-weight-light mb-5 text-uppercase font-weight-bold">Redefining Urban Logistics.</h1>
-          <p><a href="#" class="btn btn-primary py-3 px-5 text-white">Get Started!</a></p>
+          <p><a href="#contact" class="btn btn-primary py-3 px-5 text-white">Get Started!</a></p>
 
         </div>
       </div>
@@ -202,7 +202,7 @@
   <!-- ENd WHy  -->
 
   <!-- HOw it works  -->
-  <div class="site-section bg-image overlay" style="background-image: url('images/a.jpg');">
+  <div class="site-section bg-image overlay" style="background-image: url('images/a.jpg');" id="work">
     <div class="container">
       <div class="row justify-content-center mb-5">
         <div class="col-md-7 text-center border-primary">
@@ -250,7 +250,7 @@
 
   <!-- End How it works  -->
   <!-- About Us  -->
-  <div class="site-section">
+  <div class="site-section" id="about">
     <div class="container">
       <div class="row mb-5">
 
@@ -304,7 +304,7 @@
   <!-- End About -->
 
   <!-- Contact US -->
-  <div class="site-section bg-light">
+  <div class="site-section bg-light" id="contact">
     <div class="container">
       <div class="row justify-content-center mb-5">
         <div class="col-md-7 text-center border-primary">
@@ -397,7 +397,7 @@
 
   <!-- services  -->
 
-  <div class="site-section bg-light">
+  <div class="site-section bg-light" id="services">
     <div class="container">
       <div class="row justify-content-center mb-5">
         <div class="col-md-7 text-center border-primary">
@@ -566,6 +566,32 @@
   <script src="js/aos.js"></script>
 
   <script src="js/main.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Add smooth scrolling to all links
+      $("a").on('click', function (event) {
+
+        // Make sure this.hash has a value before overriding default behavior
+        if (this.hash !== "") {
+          // Prevent default anchor click behavior
+          event.preventDefault();
+
+          // Store hash
+          var hash = this.hash;
+
+          // Using jQuery's animate() method to add smooth page scroll
+          // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+          $('html, body').animate({
+            scrollTop: $(hash).offset().top
+          }, 800, function () {
+
+            // Add hash (#) to URL when done scrolling (default click behavior)
+            window.location.hash = hash;
+          });
+        } // End if
+      });
+    });
+  </script>
 
 </body>
 
