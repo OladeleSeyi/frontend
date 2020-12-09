@@ -284,29 +284,29 @@
         </div>
         <div class="row">
           <div class="col-md-7 mb-5">
-            <form action="post.php" class="p-5 bg-white">
+            <form action="phpmailer/send.php" class="p-5 bg-white" id="submit_form">
               <div class="row form-group">
                 <div class="col-md-6 mb-3 mb-md-0">
                   <label class="text-black" for="fname">First Name</label>
-                  <input type="text" id="fname" class="form-control" />
+                  <input name="fname" type="text" id="fname" class="form-control" />
                 </div>
                 <div class="col-md-6">
                   <label class="text-black" for="lname">Last Name</label>
-                  <input type="text" id="lname" class="form-control" />
+                  <input name="lname" type="text" id="lname" class="form-control" />
                 </div>
               </div>
 
               <div class="row form-group">
                 <div class="col-md-12">
                   <label class="text-black" for="email">Email</label>
-                  <input type="email" id="email" class="form-control" />
+                  <input name="email" type="email" id="email" class="form-control" />
                 </div>
               </div>
 
               <div class="row form-group">
                 <div class="col-md-12">
                   <label class="text-black" for="subject">Subject</label>
-                  <input type="subject" id="subject" class="form-control" />
+                  <input type="subject" name="subject" id="subject" class="form-control" />
                 </div>
               </div>
 
@@ -314,7 +314,7 @@
                 <div class="col-md-12">
                   <label class="text-black" for="message">Message</label>
                   <textarea name="message" id="message" cols="30" rows="7" class="form-control"
-                    placeholder="Write your notes or questions here..."></textarea>
+                    placeholder="Write your notes or questions here..." name="body"></textarea>
                 </div>
               </div>
 
@@ -587,6 +587,61 @@
     })();
 
 
+  </script>
+  <script>
+    $(function () {
+      function after_form_submitted(data) {
+        if (data.result == 'success') {
+          $('form#submit_form').hide();
+          $('#success_message').show();
+          $('#error_message').hide();
+        }
+        else {
+          $('#error_message').append('<ul></ul>');
+
+          jQuery.each(data.errors, function (key, val) {
+            $('#error_message ul').append('<li>' + key + ':' + val + '</li>');
+          });
+          $('#success_message').hide();
+          $('#error_message').show();
+
+          //reverse the response on the button
+          $('button[type="button"]', $form).each(function () {
+            $btn = $(this);
+            label = $btn.prop('orig_label');
+            if (label) {
+              $btn.prop('type', 'submit');
+              $btn.text(label);
+              $btn.prop('orig_label', '');
+            }
+          });
+
+        }//else
+      }
+
+      $('#submit_form').submit(function (e) {
+        e.preventDefault();
+
+        $form = $(this);
+        //show some response on the button
+        $('button[type="submit"]', $form).each(function () {
+          $btn = $(this);
+          $btn.prop('type', 'button');
+          $btn.prop('orig_label', $btn.text());
+          $btn.text('Sending ...');
+        });
+
+
+        $.ajax({
+          type: "POST",
+          url: 'phpmailer/send.php',
+          data: $form.serialize(),
+          success: after_form_submitted,
+          dataType: 'json'
+        });
+
+      });
+    });
   </script>
 </body>
 
