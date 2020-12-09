@@ -14,8 +14,9 @@ $mail = new PHPMailer(true);
 // Form variables
 $fname = $_POST['fname'];
 $lname = $_POST['lname'];
+$honeypot = $_POST['hpot'];
 $email = $_POST['email'];
-$email2 = "toothy61@gmail.com";
+$email2 = "info@deliver-it.ng";
 $subject = $_POST['subject'];
 $message = $_POST['message'];
 $message2 = $lname." says ".$message;
@@ -26,7 +27,11 @@ $message2 = $lname." says ".$message;
 // echo 'this is the top\n'."fname " .$fname." lname = " .$lname." email = " .$email." subject = ".$subject. "  message = ".$message2   ;
 
 try {
-
+    
+    if ($honeypot) {
+        throw new Exception('Validation Error.');
+    }
+    
     //Recipients
     $mail->setFrom('noreply@deliver-it.ng', 'Deliver-IT');
     $mail->addAddress($email, $lname);     // Add a recipient

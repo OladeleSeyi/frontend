@@ -302,6 +302,12 @@
                   <input name="email" type="email" id="email" class="form-control" />
                 </div>
               </div>
+              <div class="row form-group" hidden>
+                <div class="col-md-12">
+                  <label class="text-black" for="hpot">lol</label>
+                  <input name="hpot" type="text" id="hpot" class="form-control" />
+                </div>
+              </div>
 
               <div class="row form-group">
                 <div class="col-md-12">
@@ -614,9 +620,6 @@
           $('#btn-sub').addClass("LoaderButton spinning glyphicon disabled")
           $('#btn-sub').val('Sending ...')
         })
-
-
-
 
         $.ajax({
           type: "POST",
