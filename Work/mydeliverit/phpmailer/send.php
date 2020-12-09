@@ -22,7 +22,8 @@ $message = $_POST['message'];
 $message2 = $lname." says ".$message;
 
 
-
+$msg = "success";
+$err = true ;
 
 // echo 'this is the top\n'."fname " .$fname." lname = " .$lname." email = " .$email." subject = ".$subject. "  message = ".$message2   ;
 
@@ -51,9 +52,16 @@ try {
     $mail->AltBody = $message;
 
     $mail->send();
-    echo 'Message has been sent';
+   echo json_encode([
+        'success' => true,
+        'message' => $message
+    ]);
+    exit;
 } catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    echo json_encode([
+        'success' => false,
+        'message' => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}"
+    ]);
 }
 
 ?>
