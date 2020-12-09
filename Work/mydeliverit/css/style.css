@@ -1899,3 +1899,18 @@ h5,
   line-height: 1;
   font-size: 2rem;
 }
+
+.LoaderButton .spinning.glyphicon {
+  margin-right: 7px;
+  top: 2px;
+  animation: spin 1s infinite linear;
+  border: 2px solid black;
+}
+@keyframes spin {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+  to {
+    transform: scale(1) rotate(360deg);
+  }
+}

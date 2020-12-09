@@ -320,7 +320,7 @@
 
               <div class="row form-group">
                 <div class="col-md-12">
-                  <input type="submit" value="Send Message" class="btn btn-primary py-2 px-4 text-white" />
+                  <input type="submit" id="btn-sub" value="Send Message" class="btn btn-primary py-2 px-4 text-white" />
                 </div>
               </div>
             </form>
@@ -592,29 +592,14 @@
     $(function () {
       function after_form_submitted(data) {
         if (data.result == 'success') {
-          $('form#submit_form').hide();
-          $('#success_message').show();
-          $('#error_message').hide();
+          $('#btn-sub').removeClass("LoaderButton spinning glyphicon disabled")
+          $('#btn-sub').addClass("btn-success text-white")
+          $('#btn-sub').val('SENT')
         }
         else {
-          $('#error_message').append('<ul></ul>');
-
-          jQuery.each(data.errors, function (key, val) {
-            $('#error_message ul').append('<li>' + key + ':' + val + '</li>');
-          });
-          $('#success_message').hide();
-          $('#error_message').show();
-
-          //reverse the response on the button
-          $('button[type="button"]', $form).each(function () {
-            $btn = $(this);
-            label = $btn.prop('orig_label');
-            if (label) {
-              $btn.prop('type', 'submit');
-              $btn.text(label);
-              $btn.prop('orig_label', '');
-            }
-          });
+          $('#btn-sub').removeClass("LoaderButton spinning glyphicon disabled")
+          $('#btn-sub').addClass("btn-danger text-white")
+          $('#btn-sub').val('Try Again')
 
         }//else
       }
@@ -623,13 +608,14 @@
         e.preventDefault();
 
         $form = $(this);
-        //show some response on the button
-        $('button[type="submit"]', $form).each(function () {
-          $btn = $(this);
-          $btn.prop('type', 'button');
-          $btn.prop('orig_label', $btn.text());
-          $btn.text('Sending ...');
-        });
+        $('#btn-sub').fadeIn(3000, function () {
+          // Animation complete
+          $('#btn-sub').removeClass("btn-primary text-white")
+          $('#btn-sub').addClass("LoaderButton spinning glyphicon disabled")
+          $('#btn-sub').val('Sending ...')
+        })
+
+
 
 
         $.ajax({
