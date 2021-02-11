@@ -350,7 +350,7 @@
               </p>
               <p class="mb-0 font-weight-bold">Email Address</p>
               <p class="mb-0"><a href="orders@deliver-it.com">orders@deliver-it.com</a></p>
-              <p><a href="#" class="btn btn-primary px-4 py-2 text-white">Order Now</a></p>
+              <p><a href="/order" class="btn btn-primary px-4 py-2 text-white">Order Now</a></p>
             </div>
             <div class="p-4 mb-3 bg-white">
               <p class="mb-0 font-weight-bold">Address</p>
@@ -614,7 +614,8 @@
   <script>
     $(function () {
       function after_form_submitted(data) {
-        if (data.result) {
+        console.log(data)
+        if (data.success) {
           $('#btn-sub').removeClass("LoaderButton spinning glyphicon disabled")
           $('#btn-sub').addClass("btn-success text-white")
           $('#btn-sub').val('SENT')
@@ -640,7 +641,7 @@
 
         $.ajax({
           type: "POST",
-          url: 'phpmailer/send.php',
+          url: 'http://www.deliver-it.ng/phpmailer/control.php',
           data: $form.serialize(),
           success: after_form_submitted,
           dataType: 'json'
